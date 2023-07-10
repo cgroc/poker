@@ -9,6 +9,7 @@ lazy val root = (project in file("."))
   .settings(
     name := "poker",
     libraryDependencies ++= Seq(
+      catsEffect,
       enumeratum,
       munit % Test,
     )

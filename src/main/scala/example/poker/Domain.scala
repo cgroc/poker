@@ -39,22 +39,18 @@ object Domain {
 
   final case class Card(rank: Rank, suit: Suit)
 
-  trait Deck {
-    val cards: Set[Card]
-    def deal: (Deck, Hand) = ???
-  }
+  final case class Deck(cards: List[Card])
 
   object Deck {
     def initialise: Deck =
-        new Deck {
-            val cards = 
-              for {
-                rank: Rank <- Rank.values.toSet
-                suit: Suit <- Suit.values.toSet
-              } yield Card(rank, suit)
-        }
+      Deck(
+        for {
+          rank <- Rank.values.toList
+          suit <- Suit.values.toList
+        } yield Card(rank, suit)
+      )
   }
 
-  final case class Hand()
+  final case class Hand(cards: List[Card])
 
 }
