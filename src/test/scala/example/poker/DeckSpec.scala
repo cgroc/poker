@@ -4,6 +4,6 @@ import munit.FunSuite
 
 class DeckSpec extends FunSuite {
   test("A Deck should contain 52 cards") {
-    fail("No implementation")
+    assertEquals(Domain.Deck.initialise.cards.size, 52)
   }
 }

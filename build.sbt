@@ -8,5 +8,8 @@ ThisBuild / organizationName := "example"
 lazy val root = (project in file("."))
   .settings(
     name := "poker",
-    libraryDependencies += munit % Test
+    libraryDependencies ++= Seq(
+      enumeratum,
+      munit % Test,
+    )
   )
