@@ -37,7 +37,6 @@ object PokerHands {
     } else
       Left("Not a scoreable hand")
 
-  // TODO: Edge cases around ace high/ace low won't be handled
   private def isStraight(hand: Hand): Boolean = {
     val sorted = hand.cards.map(_.rank.value).sorted
     val sortedAceLow = hand.cards.map { c =>
