@@ -18,25 +18,27 @@ object Domain {
     case object Spades   extends Suit
   }
 
-  sealed trait Rank extends EnumEntry
+  sealed trait Rank extends EnumEntry {
+    val value: Int
+  }
 
   object Rank extends Enum[Rank] {
 
     val values = findValues
 
-    case object Two   extends Rank
-    case object Three extends Rank
-    case object Four  extends Rank
-    case object Five  extends Rank
-    case object Six   extends Rank
-    case object Seven extends Rank
-    case object Eight extends Rank
-    case object Nine  extends Rank
-    case object Ten   extends Rank
-    case object Jack  extends Rank
-    case object Queen extends Rank
-    case object King  extends Rank
-    case object Ace   extends Rank
+    case object Two   extends Rank { val value = 0  }
+    case object Three extends Rank { val value = 1  }
+    case object Four  extends Rank { val value = 2  }
+    case object Five  extends Rank { val value = 3  }
+    case object Six   extends Rank { val value = 4  }
+    case object Seven extends Rank { val value = 5  }
+    case object Eight extends Rank { val value = 6  }
+    case object Nine  extends Rank { val value = 7  }
+    case object Ten   extends Rank { val value = 8  }
+    case object Jack  extends Rank { val value = 9  }
+    case object Queen extends Rank { val value = 10 }
+    case object King  extends Rank { val value = 11 }
+    case object Ace   extends Rank { val value = 12 }
   }
 
   final case class Card(rank: Rank, suit: Suit)

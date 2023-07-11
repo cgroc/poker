@@ -4,6 +4,7 @@ import example.poker.Domain._
 import cats.Functor
 import cats.implicits._
 
+// Part 1 - deal a random hand of 5 cards
 class Dealer[F[_]: Functor](deck: Deck, shuffle: Shuffle[F]) {
   def dealHand: F[(Hand, Deck)] =
     shuffle.shuffle(deck).map { shuffled =>
