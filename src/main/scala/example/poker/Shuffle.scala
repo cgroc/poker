@@ -11,13 +11,12 @@ trait Shuffle[F[_]] {
 }
 
 object Shuffle {
-    def apply[F[_]: Functor](random: Random[F]): Shuffle[F] =
-        new Shuffle[F] {
-            def shuffle(deck: Deck): F[Deck] = 
-                random.shuffleList(deck.cards).map(Deck(_))
-        }
+  def apply[F[_]: Functor](random: Random[F]): Shuffle[F] =
+    new Shuffle[F] {
+      def shuffle(deck: Deck): F[Deck] =
+        random.shuffleList(deck.cards).map(Deck(_))
+    }
 
-    def create[F[_]: Sync]: F[Shuffle[F]] = 
-        Random.scalaUtilRandom.map(Shuffle(_))
+  def create[F[_]: Sync]: F[Shuffle[F]] =
+    Random.scalaUtilRandom.map(Shuffle(_))
 }
-
