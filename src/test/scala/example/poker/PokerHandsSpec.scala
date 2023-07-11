@@ -83,6 +83,36 @@ class PokerHandsSpec extends FunSuite {
     assertEquals(score, Right(Straight))
   }
 
+  test("PokerHands should recognise an ace high Straight") {
+    val hand: Hand =
+      Hand(
+        List(
+          Card(Ten, Clubs),
+          Card(Jack, Diamonds),
+          Card(Queen, Spades),
+          Card(King, Hearts),
+          Card(Ace, Clubs)
+        )
+      )
+    val score = PokerHands.score(hand)
+    assertEquals(score, Right(Straight))
+  }
+
+  test("PokerHands should recognise an ace low Straight") {
+    val hand: Hand =
+      Hand(
+        List(
+          Card(Ace, Clubs),
+          Card(Two, Clubs),
+          Card(Three, Diamonds),
+          Card(Four, Spades),
+          Card(Five, Hearts)
+        )
+      )
+    val score = PokerHands.score(hand)
+    assertEquals(score, Right(Straight))
+  }
+
   test("PokerHands should recognise a Flush") {
     val hand: Hand =
       Hand(

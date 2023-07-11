@@ -1,6 +1,7 @@
 package example.poker
 
 import example.poker.Domain._
+import example.poker.Domain.Rank.Ace
 
 object PokerHands {
   sealed trait PokerHand
@@ -39,7 +40,13 @@ object PokerHands {
   // TODO: Edge cases around ace high/ace low won't be handled
   private def isStraight(hand: Hand): Boolean = {
     val sorted = hand.cards.map(_.rank.value).sorted
-    isSequential(sorted)
+    val sortedAceLow = hand.cards.map { c =>
+        c.rank match {
+            case Ace => 0
+            case r => r.value
+        }
+    }.sorted
+    isSequential(sorted) || isSequential(sortedAceLow)
   }
 
   // TODO: Refactor recursion?
