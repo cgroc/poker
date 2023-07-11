@@ -26,19 +26,19 @@ object Domain {
 
     val values = findValues
 
-    case object Two   extends Rank { val value = 0  }
-    case object Three extends Rank { val value = 1  }
-    case object Four  extends Rank { val value = 2  }
-    case object Five  extends Rank { val value = 3  }
-    case object Six   extends Rank { val value = 4  }
-    case object Seven extends Rank { val value = 5  }
-    case object Eight extends Rank { val value = 6  }
-    case object Nine  extends Rank { val value = 7  }
-    case object Ten   extends Rank { val value = 8  }
-    case object Jack  extends Rank { val value = 9  }
-    case object Queen extends Rank { val value = 10 }
-    case object King  extends Rank { val value = 11 }
-    case object Ace   extends Rank { val value = 12 }
+    case object Two   extends Rank { val value = 1  }
+    case object Three extends Rank { val value = 2  }
+    case object Four  extends Rank { val value = 3  }
+    case object Five  extends Rank { val value = 4  }
+    case object Six   extends Rank { val value = 5  }
+    case object Seven extends Rank { val value = 6  }
+    case object Eight extends Rank { val value = 7  }
+    case object Nine  extends Rank { val value = 8  }
+    case object Ten   extends Rank { val value = 9  }
+    case object Jack  extends Rank { val value = 10 }
+    case object Queen extends Rank { val value = 11 }
+    case object King  extends Rank { val value = 12 }
+    case object Ace   extends Rank { val value = 13 }
   }
 
   final case class Card(rank: Rank, suit: Suit)
@@ -66,7 +66,9 @@ object Domain {
     implicit val showHand: Show[Hand] =
       hand =>
         s"""Hand:
-           |  ${hand.cards.map(card => card.show + "\n  ").combineAll}""".stripMargin
+           |  ${hand.cards
+            .map(card => card.show + "\n  ")
+            .combineAll}""".stripMargin
   }
 
 }
