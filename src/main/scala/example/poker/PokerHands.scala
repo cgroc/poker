@@ -17,6 +17,7 @@ object PokerHands {
     case object StraightFlush extends PokerHand
   }
 
+  // Part 2 - recognise poker hands
   def score(hand: Hand): Either[String, PokerHand] =
     if (hand.cards.size == 5) {
       // score the hand
@@ -24,9 +25,9 @@ object PokerHands {
         hand.cards.groupBy(_.rank).values.toList
       groupedByRank.length match {
         case 5 => scoreFiveGroups(hand)
-        case 4 => Left("Not Implemented")
-        case 3 => Left("Not Implemented")
-        case 2 => Left("Not Implemented")
+        case 4 => Right(PokerHand.Pair)
+        case 3 => scoreThreeGroups(hand)
+        case 2 => scoreTwoGroups(hand)
         case _ =>
           Left(
             "This is an impossible state for poker hands, it would be nice to eliminate it"
@@ -56,6 +57,7 @@ object PokerHands {
   private def isFlush(hand: Hand): Boolean =
     hand.cards.groupBy(_.suit).size == 1
 
+  // TODO: Return type is a lie
   private def scoreFiveGroups(hand: Hand): Either[String, PokerHand] =
     (isFlush(hand), isStraight(hand)) match {
       case (true, true)  => Right(PokerHand.StraightFlush)
@@ -63,4 +65,22 @@ object PokerHands {
       case (false, true) => Right(PokerHand.Straight)
       case _             => Right(PokerHand.HighCard)
     }
+
+  // TODO: Return type is a lie
+  private def scoreThreeGroups(hand: Hand): Either[String, PokerHand] = {
+    val groupSizes = hand.cards.groupBy(_.rank).values.toList.map(_.length)
+    if (groupSizes.contains(3))
+      Right(PokerHand.ThreeOfAKind)
+    else
+      Right(PokerHand.TwoPair)
+  }
+
+  // TODO: Return type is a lie
+  private def scoreTwoGroups(hand: Hand): Either[String, PokerHand] = {
+    val groupSizes = hand.cards.groupBy(_.rank).values.toList.map(_.length)
+    if (groupSizes.contains(4))
+      Right(PokerHand.FourOfAKind)
+    else
+      Right(PokerHand.FullHouse)
+  }
 }
