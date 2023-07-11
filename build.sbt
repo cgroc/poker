@@ -12,5 +12,6 @@ lazy val root = (project in file("."))
       catsEffect,
       enumeratum,
       munit % Test,
+      munitCatsEffect % Test,
     )
   )
