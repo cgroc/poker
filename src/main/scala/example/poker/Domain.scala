@@ -1,5 +1,7 @@
 package example.poker
 
+import cats.Show
+import cats.implicits._
 import enumeratum._
 
 object Domain {
@@ -39,6 +41,11 @@ object Domain {
 
   final case class Card(rank: Rank, suit: Suit)
 
+  object Card {
+    implicit val showCard: Show[Card] =
+      card => s"${card.rank} of ${card.suit}"
+  }
+
   final case class Deck(cards: List[Card])
 
   object Deck {
@@ -52,5 +59,12 @@ object Domain {
   }
 
   final case class Hand(cards: List[Card])
+
+  object Hand {
+    implicit val showHand: Show[Hand] =
+      hand =>
+        s"""Hand:
+           |  ${hand.cards.map(card => card.show + "\n  ").combineAll}""".stripMargin
+  }
 
 }
